@@ -1,0 +1,22 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Mitrastar Router",
+        "description": "Enter your router's connection details",
+        "data": {
+          "host": "Router IP Address",
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to the router. Please check your credentials and network connection.",
+      "unknown": "Unexpected error occurred"
+    },
+    "abort": {
+      "already_configured": "This router is already configured"
+    }
+  }
+}

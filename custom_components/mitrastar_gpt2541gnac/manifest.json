@@ -1,0 +1,11 @@
+{
+  "domain": "mitrastar_gpt2541gnac",
+  "name": "Mitrastar GPT-2541GNAC",
+  "codeowners": ["@aguerrero"],
+  "config_flow": true,
+  "documentation": "https://github.com/aguerrero/Mitrastar-GPT-2541GNAC",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "requirements": ["asyncssh==2.14.0"],
+  "version": "1.0.0"
+}

@@ -1,0 +1,89 @@
+# Beautiful graphs using Mini Graph Card
+# Install from HACS: https://github.com/kalkih/mini-graph-card
+
+---
+# WAN Traffic Graph
+type: custom:mini-graph-card
+name: WAN Traffic
+icon: mdi:wan
+hours_to_show: 24
+points_per_hour: 2
+line_width: 2
+smoothing: true
+entities:
+  - entity: sensor.wan_ppp0_1_rx_total_bytes
+    name: Download
+    color: '#1f77b4'
+    show_state: true
+  - entity: sensor.wan_ppp0_1_tx_total_bytes
+    name: Upload
+    color: '#ff7f0e'
+    show_state: true
+show:
+  labels: true
+  legend: true
+  fill: fade
+
+---
+# Optical Power Graph
+type: custom:mini-graph-card
+name: Optical Power Levels
+icon: mdi:optical-fiber
+hours_to_show: 168
+points_per_hour: 1
+line_width: 3
+smoothing: true
+entities:
+  - entity: sensor.optical_rx_power
+    name: RX Power
+    color: green
+  - entity: sensor.optical_tx_power
+    name: TX Power
+    color: blue
+show:
+  labels: true
+  legend: true
+  fill: false
+
+---
+# LAN Port 1 Graph
+type: custom:mini-graph-card
+name: LAN Port 1 Traffic
+icon: mdi:ethernet
+hours_to_show: 24
+points_per_hour: 4
+line_width: 2
+smoothing: true
+entities:
+  - entity: sensor.lan_eth1_rx_total_bytes
+    name: RX
+    color: '#2ecc71'
+  - entity: sensor.lan_eth1_tx_total_bytes
+    name: TX
+    color: '#e74c3c'
+show:
+  labels: true
+  legend: true
+  fill: fade
+
+---
+# Temperature Graph
+type: custom:mini-graph-card
+name: SFP Temperature
+icon: mdi:thermometer
+hours_to_show: 24
+points_per_hour: 2
+line_width: 3
+smoothing: true
+color_thresholds:
+  - value: 0
+    color: '#2ecc71'
+  - value: 60
+    color: '#f39c12'
+  - value: 70
+    color: '#e74c3c'
+entities:
+  - entity: sensor.sff_temperature
+show:
+  labels: true
+  fill: fade

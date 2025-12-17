@@ -1,0 +1,94 @@
+# Advanced Charts using ApexCharts Card
+# Install from HACS: https://github.com/RomRider/apexcharts-card
+# These provide more beautiful and customizable graphs
+
+---
+# WAN Bandwidth Chart (Real-time)
+type: custom:apexcharts-card
+header:
+  show: true
+  title: WAN Bandwidth (PPP0.1)
+  show_states: true
+  colorize_states: true
+graph_span: 1h
+update_interval: 30s
+series:
+  - entity: sensor.wan_ppp0_1_rx_total_bytes
+    name: Download
+    type: line
+    color: '#1f77b4'
+    transform: return (x - hass.states['sensor.wan_ppp0_1_rx_total_bytes'].attributes.last_value || 0) / 30;
+    unit: B/s
+    show:
+      legend_value: true
+  - entity: sensor.wan_ppp0_1_tx_total_bytes
+    name: Upload
+    type: line
+    color: '#ff7f0e'
+    transform: return (x - hass.states['sensor.wan_ppp0_1_tx_total_bytes'].attributes.last_value || 0) / 30;
+    unit: B/s
+    show:
+      legend_value: true
+
+---
+# LAN Ports Comparison
+type: custom:apexcharts-card
+header:
+  show: true
+  title: LAN Ports - Download Traffic
+graph_span: 24h
+series:
+  - entity: sensor.lan_eth1_rx_total_bytes
+    name: Port 1
+    type: area
+    opacity: 0.3
+    stroke_width: 2
+  - entity: sensor.lan_eth3_rx_total_bytes
+    name: Port 3
+    type: area
+    opacity: 0.3
+    stroke_width: 2
+  - entity: sensor.lan_eth4_rx_total_bytes
+    name: Port 4
+    type: area
+    opacity: 0.3
+    stroke_width: 2
+
+---
+# Optical Power Monitoring (Historical)
+type: custom:apexcharts-card
+header:
+  show: true
+  title: Optical Signal Quality
+graph_span: 7d
+series:
+  - entity: sensor.optical_rx_power
+    name: RX Power
+    type: line
+    color: green
+    stroke_width: 2
+  - entity: sensor.optical_tx_power
+    name: TX Power
+    type: line
+    color: blue
+    stroke_width: 2
+
+---
+# Temperature Monitoring
+type: custom:apexcharts-card
+header:
+  show: true
+  title: SFP Module Temperature
+graph_span: 24h
+series:
+  - entity: sensor.sff_temperature
+    name: Temperature
+    type: area
+    color: orange
+    opacity: 0.2
+    stroke_width: 2
+yaxis:
+  - min: 0
+    max: 80
+    apex_config:
+      tickAmount: 8

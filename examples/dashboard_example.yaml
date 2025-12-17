@@ -1,0 +1,236 @@
+# Mitrastar GPT-2541GNAC Dashboard Example
+# Copy this content to your Home Assistant dashboard (Lovelace UI)
+
+# Main Router Overview
+type: vertical-stack
+cards:
+  # Router Status Card
+  - type: entities
+    title: Router Status Overview
+    entities:
+      - entity: sensor.optical_rx_power
+        name: Optical RX Power
+      - entity: sensor.optical_tx_power
+        name: Optical TX Power
+      - entity: sensor.sff_temperature
+        name: SFP Temperature
+      - entity: sensor.laser_supply_voltage
+        name: Supply Voltage
+      - entity: sensor.laser_bias_current
+        name: Bias Current
+
+  # Optical Power Gauges
+  - type: horizontal-stack
+    cards:
+      - type: gauge
+        entity: sensor.optical_rx_power
+        name: RX Power
+        min: -30
+        max: 0
+        severity:
+          red: -30
+          yellow: -25
+          green: -20
+      - type: gauge
+        entity: sensor.optical_tx_power
+        name: TX Power
+        min: 0
+        max: 5
+        severity:
+          green: 2
+          yellow: 1
+          red: 0
+      - type: gauge
+        entity: sensor.sff_temperature
+        name: Temperature
+        min: 0
+        max: 80
+        severity:
+          green: 0
+          yellow: 60
+          red: 70
+
+  # LAN Interfaces Status
+  - type: entities
+    title: LAN Interfaces Status
+    entities:
+      - type: section
+        label: Ethernet Port 0
+      - entity: sensor.lan_eth0_rx_status
+        name: Status
+      - entity: sensor.lan_eth0_rx_total_bytes
+        name: RX Bytes
+      - entity: sensor.lan_eth0_tx_total_bytes
+        name: TX Bytes
+      
+      - type: section
+        label: Ethernet Port 1
+      - entity: sensor.lan_eth1_rx_status
+        name: Status
+      - entity: sensor.lan_eth1_rx_total_bytes
+        name: RX Bytes
+      - entity: sensor.lan_eth1_tx_total_bytes
+        name: TX Bytes
+      
+      - type: section
+        label: Ethernet Port 2
+      - entity: sensor.lan_eth2_rx_status
+        name: Status
+      - entity: sensor.lan_eth2_rx_total_bytes
+        name: RX Bytes
+      - entity: sensor.lan_eth2_tx_total_bytes
+        name: TX Bytes
+      
+      - type: section
+        label: Ethernet Port 3
+      - entity: sensor.lan_eth3_rx_status
+        name: Status
+      - entity: sensor.lan_eth3_rx_total_bytes
+        name: RX Bytes
+      - entity: sensor.lan_eth3_tx_total_bytes
+        name: TX Bytes
+      
+      - type: section
+        label: Ethernet Port 4
+      - entity: sensor.lan_eth4_rx_status
+        name: Status
+      - entity: sensor.lan_eth4_rx_total_bytes
+        name: RX Bytes
+      - entity: sensor.lan_eth4_tx_total_bytes
+        name: TX Bytes
+
+---
+# WAN Statistics Card
+type: vertical-stack
+cards:
+  - type: entities
+    title: WAN Statistics
+    entities:
+      - type: section
+        label: PPP Interface (ppp0.1)
+      - entity: sensor.wan_ppp0_1_rx_total_bytes
+        name: RX Bytes
+      - entity: sensor.wan_ppp0_1_tx_total_bytes
+        name: TX Bytes
+      - entity: sensor.wan_ppp0_1_rx_total_packets
+        name: RX Packets
+      - entity: sensor.wan_ppp0_1_tx_total_packets
+        name: TX Packets
+      - entity: sensor.wan_ppp0_1_rx_errors
+        name: RX Errors
+      - entity: sensor.wan_ppp0_1_tx_errors
+        name: TX Errors
+      
+      - type: section
+        label: VEIP 0.2
+      - entity: sensor.wan_veip0_2_rx_total_bytes
+        name: RX Bytes
+      - entity: sensor.wan_veip0_2_tx_total_bytes
+        name: TX Bytes
+      
+      - type: section
+        label: VEIP 0.3
+      - entity: sensor.wan_veip0_3_rx_total_bytes
+        name: RX Bytes
+      - entity: sensor.wan_veip0_3_tx_total_bytes
+        name: TX Bytes
+
+---
+# Network Traffic Graphs (Requires History/Statistics integration)
+type: vertical-stack
+cards:
+  # WAN Traffic Graph
+  - type: statistics-graph
+    title: WAN Traffic (PPP0.1)
+    entities:
+      - sensor.wan_ppp0_1_rx_total_bytes
+      - sensor.wan_ppp0_1_tx_total_bytes
+    days_to_show: 1
+    chart_type: line
+    stat_types:
+      - change
+
+  # LAN Port 1 Traffic
+  - type: statistics-graph
+    title: LAN Port 1 Traffic
+    entities:
+      - sensor.lan_eth1_rx_total_bytes
+      - sensor.lan_eth1_tx_total_bytes
+    days_to_show: 1
+    chart_type: line
+    stat_types:
+      - change
+
+  # LAN Port 3 Traffic
+  - type: statistics-graph
+    title: LAN Port 3 Traffic
+    entities:
+      - sensor.lan_eth3_rx_total_bytes
+      - sensor.lan_eth3_tx_total_bytes
+    days_to_show: 1
+    chart_type: line
+    stat_types:
+      - change
+
+  # LAN Port 4 Traffic
+  - type: statistics-graph
+    title: LAN Port 4 Traffic
+    entities:
+      - sensor.lan_eth4_rx_total_bytes
+      - sensor.lan_eth4_tx_total_bytes
+    days_to_show: 1
+    chart_type: line
+    stat_types:
+      - change
+
+---
+# Error Monitoring Card
+type: entities
+title: Network Errors & Drops
+entities:
+  - type: section
+    label: LAN Errors
+  - entity: sensor.lan_eth1_rx_errors
+    name: ETH1 RX Errors
+  - entity: sensor.lan_eth1_tx_errors
+    name: ETH1 TX Errors
+  - entity: sensor.lan_eth1_rx_drops
+    name: ETH1 RX Drops
+  - entity: sensor.lan_eth1_tx_drops
+    name: ETH1 TX Drops
+  - entity: sensor.lan_eth3_rx_errors
+    name: ETH3 RX Errors
+  - entity: sensor.lan_eth3_tx_errors
+    name: ETH3 TX Errors
+  - entity: sensor.lan_eth4_rx_errors
+    name: ETH4 RX Errors
+  - entity: sensor.lan_eth4_tx_errors
+    name: ETH4 TX Errors
+  
+  - type: section
+    label: WAN Errors
+  - entity: sensor.wan_ppp0_1_rx_errors
+    name: PPP0.1 RX Errors
+  - entity: sensor.wan_ppp0_1_tx_errors
+    name: PPP0.1 TX Errors
+  - entity: sensor.wan_ppp0_1_rx_drops
+    name: PPP0.1 RX Drops
+  - entity: sensor.wan_ppp0_1_tx_drops
+    name: PPP0.1 TX Drops
+
+---
+# Compact Port Status Card
+type: glance
+title: Port Status Quick View
+columns: 5
+entities:
+  - entity: sensor.lan_eth0_rx_status
+    name: ETH0
+  - entity: sensor.lan_eth1_rx_status
+    name: ETH1
+  - entity: sensor.lan_eth2_rx_status
+    name: ETH2
+  - entity: sensor.lan_eth3_rx_status
+    name: ETH3
+  - entity: sensor.lan_eth4_rx_status
+    name: ETH4
