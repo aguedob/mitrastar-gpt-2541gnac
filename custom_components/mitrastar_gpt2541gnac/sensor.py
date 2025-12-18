@@ -80,7 +80,7 @@ async def async_setup_entry(
                     f"LAN {interface.upper()} {direction.upper()} Total Bytes",
                     UnitOfInformation.BYTES,
                     SensorDeviceClass.DATA_SIZE,
-                    SensorStateClass.TOTAL_INCREASING,
+                    SensorStateClass.TOTAL,
                     "mdi:counter",
                 )
             )
@@ -100,7 +100,7 @@ async def async_setup_entry(
                         f"LAN {interface.upper()} {direction.upper()} {metric.replace('_', ' ').title()}",
                         "packets",
                         None,
-                        SensorStateClass.TOTAL_INCREASING,
+                        SensorStateClass.TOTAL,
                         "mdi:package-variant",
                     )
                 )
@@ -115,7 +115,7 @@ async def async_setup_entry(
                         f"LAN {interface.upper()} {direction.upper()} {metric.title()}",
                         metric,
                         None,
-                        SensorStateClass.TOTAL_INCREASING,
+                        SensorStateClass.TOTAL,
                         "mdi:alert-circle",
                     )
                 )
@@ -151,7 +151,7 @@ async def async_setup_entry(
                     f"WAN {interface} {direction.upper()} Total Bytes",
                     UnitOfInformation.BYTES,
                     SensorDeviceClass.DATA_SIZE,
-                    SensorStateClass.TOTAL_INCREASING,
+                    SensorStateClass.TOTAL,
                     "mdi:counter",
                 )
             )
@@ -171,7 +171,7 @@ async def async_setup_entry(
                         f"WAN {interface} {direction.upper()} {metric.replace('_', ' ').title()}",
                         "packets",
                         None,
-                        SensorStateClass.TOTAL_INCREASING,
+                        SensorStateClass.TOTAL,
                         "mdi:package-variant",
                     )
                 )
@@ -186,7 +186,7 @@ async def async_setup_entry(
                         f"WAN {interface} {direction.upper()} {metric.title()}",
                         metric,
                         None,
-                        SensorStateClass.TOTAL_INCREASING,
+                        SensorStateClass.TOTAL,
                         "mdi:alert-circle",
                     )
                 )
